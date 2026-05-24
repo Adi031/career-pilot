@@ -1,7 +1,7 @@
 import { useState, useRef, useEffect } from "react";
 import DeployModal from "../components/portfolio/DeployModal";
 import ThemeSelector from "../components/portfolio/ThemeSelector";
-import { useTheme } from "../context/ThemeContext";
+import { useTheme } from "../hooks/useTheme";
 import { motion, AnimatePresence } from "framer-motion";
 import { Moon, Sun, ChevronDown, Check, Eye, Star } from "lucide-react";
 import HolographicAbout from "../components/portfolio/templates/Holographic/About";
