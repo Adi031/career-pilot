@@ -341,7 +341,7 @@ function Projects({ data, t }) {
             custom={idx}
             whileHover={{ rotateX: -2, rotateY: 3, scale: 1.02 }}
             transition={{ type: 'spring', stiffness: 300, damping: 20 }}
-            style={{ transformPerspective: 800 }}
+            style={{ perspective: 800 }}
             className={`${t.radiusLg} overflow-hidden border ${t.border} ${t.bgCard} ${t.shadow} ${t.glowRing} ${t.cardExtra} group cursor-pointer`}
           >
             {project.image && (
