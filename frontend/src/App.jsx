@@ -52,9 +52,9 @@ import FellowshipMessages from './pages/fellowship/FellowshipMessages';
 import FellowshipChat from './pages/fellowship/FellowshipChat';
 import SecuritySettings from './pages/SecuritySettings';
 import LinkedInCallback from './pages/LinkedInCallback';
-import PrivacyPolicy from './pages/PrivacyPolicy';
-import TermsOfService from './pages/TermsOfService';
-import CookiePolicy from './pages/CookiePolicy';
+const PrivacyPolicy = lazy(() => import('./pages/PrivacyPolicy'));
+const TermsOfService = lazy(() => import('./pages/TermsOfService'));
+const CookiePolicy = lazy(() => import('./pages/CookiePolicy'));
 import OpenRouterCallback from './pages/OpenRouterCallback';
 
 // Hub Imports
@@ -171,10 +171,10 @@ function AppRoutes() {
         <Route path="/auth/openrouter/callback" element={<OpenRouterCallback />} />
 
         {/* Legal Pages (Public) */}
-        <Route path="/privacy" element={<PrivacyPolicy />} />
+        <Route path="/privacy" element={<Suspense fallback={null}><PrivacyPolicy /></Suspense>} />
         <Route path="/about" element={<About />} />
-        <Route path="/terms" element={<TermsOfService />} />
-        <Route path="/cookies" element={<CookiePolicy />} />
+        <Route path="/terms" element={<Suspense fallback={null}><TermsOfService /></Suspense>} />
+        <Route path="/cookies" element={<Suspense fallback={null}><CookiePolicy /></Suspense>} />
 
         {/* Template Gallery Route (Registered at /templates) */}
         <Route path="/templates" element={<TemplateGallery />} />
