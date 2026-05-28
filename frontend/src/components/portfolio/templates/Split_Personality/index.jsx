@@ -15,7 +15,7 @@ export default function SplitPersonality() {
   const [splitPos, setSplitPos] = useState(50);
   const [mobileTheme, setMobileTheme] = useState('dark');
   const [isMobile, setIsMobile] = useState(false);
-  const isDragging = useRef(false);
+  const [isDragging, setIsDragging] = useState(false);
   const containerRef = useRef(null);
 
   /* ───── detect mobile ───── */
@@ -28,19 +28,19 @@ export default function SplitPersonality() {
 
   /* ───── pointer handlers (desktop only) ───── */
   const handlePointerDown = useCallback((e) => {
-    isDragging.current = true;
+    setIsDragging(true);
     e.target.setPointerCapture(e.pointerId);
   }, []);
 
   const handlePointerMove = useCallback((e) => {
-    if (!isDragging.current || !containerRef.current) return;
+    if (!isDragging || !containerRef.current) return;
     const rect = containerRef.current.getBoundingClientRect();
     const x = ((e.clientX - rect.left) / rect.width) * 100;
     setSplitPos(Math.min(95, Math.max(5, x)));
-  }, []);
+  }, [isDragging]);
 
   const handlePointerUp = useCallback(() => {
-    isDragging.current = false;
+    setIsDragging(false);
   }, []);
 
   /* Keyboard accessibility for the slider */
@@ -66,7 +66,7 @@ export default function SplitPersonality() {
 
   /* Prevent scroll-jank during drag */
   useEffect(() => {
-    const handleGlobalUp = () => { isDragging.current = false; };
+    const handleGlobalUp = () => { setIsDragging(false); };
     window.addEventListener('pointerup', handleGlobalUp);
     return () => window.removeEventListener('pointerup', handleGlobalUp);
   }, []);
@@ -112,7 +112,7 @@ export default function SplitPersonality() {
       onPointerMove={handlePointerMove}
       onPointerUp={handlePointerUp}
       className="relative w-full h-screen overflow-hidden select-none"
-      style={{ touchAction: isDragging.current ? 'none' : 'auto' }}
+      style={{ touchAction: isDragging ? 'none' : 'auto' }}
     >
       {/* ─── LIGHT LAYER (base) ─── */}
       <div
